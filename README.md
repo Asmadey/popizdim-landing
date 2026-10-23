@@ -12,6 +12,18 @@ python3 -m http.server 8080
 
 Откройте <http://localhost:8080>.
 
+## Деплой на Firebase Hosting
+
+Сайт опубликован на **https://popizdi.web.app** (проект Firebase `popizdi`).
+
+```bash
+npm install -g firebase-tools
+firebase login
+firebase deploy --only hosting --project popizdi
+```
+
+Настройки лежат в `firebase.json` (заголовки, кэш, список файлов, которые не публикуются) и `.firebaserc`. Автодеплой из GitHub включается командой `firebase init hosting:github`.
+
 ## Автодеплой на Vercel
 
 Репозиторий готов к подключению через Git-интеграцию Vercel: после подключения каждый push в `main` выкатывается на боевой адрес, а каждая ветка и pull request получают свой предпросмотр.
