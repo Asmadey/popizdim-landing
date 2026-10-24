@@ -15,7 +15,9 @@
       "**/.git/**",
       ".firebaserc",
       ".vercel/**",
-      ".firebase/**"
+      ".firebase/**",
+      "firebase-debug.log",
+      ".github/**"
     ],
     "headers": [
       {
