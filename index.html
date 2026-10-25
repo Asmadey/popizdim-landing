@@ -345,6 +345,13 @@
         -webkit-backdrop-filter: blur(18px) saturate(1.5);
         box-shadow: 0 10px 40px rgba(0, 0, 0, 0.45);
       }
+      @media (max-width: 600px) {
+        /* Nudge the floating menu 15px closer to the top edge without moving the page content */
+        .pill {
+          position: relative;
+          top: -15px;
+        }
+      }
       .pill .btn {
         white-space: nowrap;
         flex: none;
@@ -467,11 +474,15 @@
       .hero2 .hero-mark {
         width: 216px;
         height: 216px;
-        border-radius: 58px;
         margin-bottom: 28px;
-        box-shadow:
-          0 0 0 1px rgba(255, 255, 255, 0.12),
-          0 20px 70px rgba(221, 30, 58, 0.45);
+        /* Glow follows the icon's own shape: no ring or box around it */
+        filter: drop-shadow(0 20px 35px rgba(221, 30, 58, 0.45));
+      }
+      @media (max-width: 600px) {
+        .hero2 .hero-mark {
+          width: 194px;
+          height: 194px;
+        }
       }
       .hero2 .cta-row {
         justify-content: center;
@@ -988,7 +999,8 @@
         width: 80%;
         max-width: 768px;
       }
-      @media (max-width: 600px) {
+      /* The dock is ~520px wide, so below ~720px the frame must take the full width */
+      @media (max-width: 720px) {
         .show {
           width: 100%;
         }
@@ -1184,7 +1196,7 @@
         color: var(--text);
         font-weight: 600;
       }
-      @media (max-width: 560px) {
+      @media (max-width: 720px) {
         .dock-item:first-child .tip {
           left: 0;
           transform: translate(0, 4px);
@@ -1228,6 +1240,38 @@
         }
         .show-cap {
           font-size: 15px;
+        }
+      }
+      /* Narrow phones: keep the 8-icon dock inside the window */
+      @media (max-width: 420px) {
+        .dock {
+          gap: 3px;
+          padding: 5px;
+        }
+        .dock-item {
+          width: 32px;
+          height: 32px;
+        }
+        .dock-item svg {
+          width: 16px;
+          height: 16px;
+        }
+      }
+      @media (max-width: 350px) {
+        .dock {
+          gap: 2px;
+          padding: 4px;
+        }
+        .dock-item {
+          width: 28px;
+          height: 28px;
+        }
+        .dock-item svg {
+          width: 15px;
+          height: 15px;
+        }
+        .dock-item.is-active {
+          margin: 0 2px;
         }
       }
 
@@ -1370,6 +1414,8 @@
         font-weight: 600;
         color: #fff;
         min-height: 44px;
+        min-width: 144px;
+        justify-content: center;
         padding: 9px 18px;
         border-radius: 12px;
         border: 1px solid rgba(255, 255, 255, 0.16);
@@ -1380,8 +1426,13 @@
           inset 0 1px 0 rgba(255, 255, 255, 0.35),
           0 6px 20px rgba(238, 42, 71, 0.25);
         transition:
+          transform 0.15s ease,
           background 0.2s ease,
           box-shadow 0.2s ease;
+      }
+      /* .btn:active would replace the centering translate and make the button jump */
+      .code button:active {
+        transform: translateY(-50%) scale(0.98);
       }
       .code button:hover {
         background:
@@ -1707,6 +1758,88 @@
         margin-top: 34px;
         margin-bottom: 0;
       }
+      .t-short {
+        display: none;
+      }
+      /* Mobile: halve the gap between the hero showcase and the next section */
+      @media (max-width: 900px) {
+        .hero2 {
+          padding-bottom: 55px;
+        }
+        .hero2 + section {
+          padding-top: 30px;
+        }
+      }
+      /* Phones: download + GitHub stay on one line, with shorter labels */
+      @media (max-width: 520px) {
+        .hero2 .cta-row,
+        .final .cta-row {
+          flex-wrap: nowrap;
+          gap: 8px;
+        }
+        .hero2 .cta-row .btn,
+        .final .cta-row .btn {
+          flex: 0 1 auto;
+          min-width: 0;
+          gap: 8px;
+          padding: 14px 16px;
+          font-size: 15px;
+          white-space: nowrap;
+        }
+        .hero2 .cta-row .btn .ico,
+        .final .cta-row .btn .ico {
+          width: 18px;
+          height: 18px;
+        }
+        .cta-row .t-full {
+          display: none;
+        }
+        .cta-row .t-short {
+          display: inline;
+        }
+        /* The closing card is narrower than the hero, so its buttons are more compact */
+        .final {
+          padding: 48px 12px;
+          /* stretch the card to 10px from the screen edges (the page gutter is 20px) */
+          margin-inline: -10px;
+        }
+        .final .cta-row .btn {
+          padding: 12px 11px;
+          font-size: 14px;
+          gap: 6px;
+        }
+        /* Model chips: three rows instead of five */
+        .hero2 .strip .wrap {
+          padding: 0 10px;
+        }
+        .chips {
+          gap: 6px;
+        }
+        .chip {
+          font-size: 12px;
+          padding: 6px 10px;
+        }
+      }
+      @media (max-width: 350px) {
+        .hero2 .cta-row .btn {
+          padding: 12px 11px;
+          font-size: 14px;
+          gap: 6px;
+        }
+        .final .cta-row .btn {
+          padding: 11px 7px;
+          font-size: 13px;
+          gap: 5px;
+        }
+        .final {
+          padding-left: 8px;
+          padding-right: 8px;
+        }
+        .chip {
+          font-size: 11px;
+          padding: 5px 8px;
+        }
+      }
 
       footer {
         padding: 40px 0 56px;
@@ -1787,6 +1920,9 @@
           right: 12px;
           transform: none;
         }
+        .code button:active {
+          transform: scale(0.98);
+        }
         .r1,
         .r2,
         .r3 {
@@ -1797,8 +1933,11 @@
           align-items: flex-start;
           padding: 28px 24px;
         }
+        /* Tiles are 1:1 with the artwork in the middle band: crop the empty top/bottom (~40% less height) */
         .tile img {
           height: auto;
+          aspect-ratio: 5 / 3;
+          object-position: 50% 47%;
         }
         .tabs {
           overflow-x: auto;
@@ -1857,12 +1996,12 @@
             <a
               class="btn btn-light"
               href="https://github.com/Asmadey/popizdim-app/releases/download/v1.0.0/Popizdim_1.0.dmg"
-              ><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M12.152 6.896c-.948 0-2.415-1.078-3.96-1.04-2.04.027-3.91 1.183-4.961 3.014-2.117 3.675-.546 9.103 1.519 12.09 1.013 1.454 2.208 3.09 3.792 3.039 1.52-.065 2.09-.987 3.935-.987 1.831 0 2.35.987 3.96.948 1.637-.026 2.676-1.48 3.676-2.948 1.156-1.688 1.636-3.325 1.662-3.415-.039-.013-3.182-1.221-3.22-4.857-.026-3.04 2.48-4.494 2.597-4.559-1.429-2.09-3.623-2.324-4.39-2.376-2-.156-3.675 1.09-4.61 1.09zM15.53 3.83c.843-1.012 1.4-2.427 1.245-3.83-1.207.052-2.662.805-3.532 1.818-.78.896-1.454 2.338-1.273 3.714 1.338.104 2.715-.688 3.559-1.701"/></svg>Скачать для macOS</a
+              ><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M12.152 6.896c-.948 0-2.415-1.078-3.96-1.04-2.04.027-3.91 1.183-4.961 3.014-2.117 3.675-.546 9.103 1.519 12.09 1.013 1.454 2.208 3.09 3.792 3.039 1.52-.065 2.09-.987 3.935-.987 1.831 0 2.35.987 3.96.948 1.637-.026 2.676-1.48 3.676-2.948 1.156-1.688 1.636-3.325 1.662-3.415-.039-.013-3.182-1.221-3.22-4.857-.026-3.04 2.48-4.494 2.597-4.559-1.429-2.09-3.623-2.324-4.39-2.376-2-.156-3.675 1.09-4.61 1.09zM15.53 3.83c.843-1.012 1.4-2.427 1.245-3.83-1.207.052-2.662.805-3.532 1.818-.78.896-1.454 2.338-1.273 3.714 1.338.104 2.715-.688 3.559-1.701"/></svg><span class="t-full">Скачать для macOS</span><span class="t-short">Скачать для Mac</span></a
             >
             <a
               class="btn btn-ghost"
               href="https://github.com/Asmadey/popizdim-app"
-              ><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.925.435.375.81 1.096.81 2.22 0 .81-.01 1.89-.01 3.075 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/></svg>Репозиторий на GitHub</a
+              ><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.925.435.375.81 1.096.81 2.22 0 .81-.01 1.89-.01 3.075 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/></svg><span class="t-full">Репозиторий на GitHub</span><span class="t-short">GitHub репо</span></a
             >
           </div>
           <div class="strip">
@@ -2010,7 +2149,7 @@
               <div class="fcard-top">
                 <h3>Диктуйте в любом приложении</h3>
               </div>
-              <p>Поддержка распознавания диктовки на 60 языках</p>
+              <p>Говорите на любом из 60 языков, текст появится там, где курсор</p>
               <ul>
                 <li>Удерживайте или нажмите один раз</li>
                 <li>Удаляет «э-э» и запинки</li>
@@ -2025,7 +2164,7 @@
               <div class="fcard-top">
                 <h3>Облако или офлайн</h3>
               </div>
-              <p>MAI для скорости и точности, GigaAM и Parakeet полностью офлайн.</p>
+              <p>MAI для скорости и точности, GigaAM и Parakeet — офлайн</p>
               <ul>
                 <li>MAI-Transcribe-2.1: настоящий стриминг</li>
                 <li>OpenRouter: один ключ и около $0.1 за час</li>
@@ -2148,7 +2287,6 @@
       <section id="all" style="padding-top: 24px">
         <div class="wrap">
           <div class="section-head">
-            <span class="eyebrow">Всё в одном</span>
             <h2>Технологии</h2>
           </div>
 
@@ -2174,7 +2312,6 @@
         <div class="wrap">
           <div class="section-head">
             <h2>Выберите модель под задачу</h2>
-            <p class="lead">Выбирайте облачные или локальные модели</p>
           </div>
           <div class="table" role="table" aria-label="Модели распознавания">
             <div class="row head" role="row">
@@ -2215,7 +2352,7 @@
       <section id="install">
         <div class="wrap">
           <div class="section-head">
-            <h2>Три шага до первой диктовки</h2>
+            <h2>Как начать?</h2>
           </div>
           <div class="steps">
             <div class="step">
@@ -2381,10 +2518,10 @@
               <a
                 class="btn btn-light"
                 href="https://github.com/Asmadey/popizdim-app/releases/download/v1.0.0/Popizdim_1.0.dmg"
-                ><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M12.152 6.896c-.948 0-2.415-1.078-3.96-1.04-2.04.027-3.91 1.183-4.961 3.014-2.117 3.675-.546 9.103 1.519 12.09 1.013 1.454 2.208 3.09 3.792 3.039 1.52-.065 2.09-.987 3.935-.987 1.831 0 2.35.987 3.96.948 1.637-.026 2.676-1.48 3.676-2.948 1.156-1.688 1.636-3.325 1.662-3.415-.039-.013-3.182-1.221-3.22-4.857-.026-3.04 2.48-4.494 2.597-4.559-1.429-2.09-3.623-2.324-4.39-2.376-2-.156-3.675 1.09-4.61 1.09zM15.53 3.83c.843-1.012 1.4-2.427 1.245-3.83-1.207.052-2.662.805-3.532 1.818-.78.896-1.454 2.338-1.273 3.714 1.338.104 2.715-.688 3.559-1.701"/></svg>Скачать для macOS</a
+                ><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M12.152 6.896c-.948 0-2.415-1.078-3.96-1.04-2.04.027-3.91 1.183-4.961 3.014-2.117 3.675-.546 9.103 1.519 12.09 1.013 1.454 2.208 3.09 3.792 3.039 1.52-.065 2.09-.987 3.935-.987 1.831 0 2.35.987 3.96.948 1.637-.026 2.676-1.48 3.676-2.948 1.156-1.688 1.636-3.325 1.662-3.415-.039-.013-3.182-1.221-3.22-4.857-.026-3.04 2.48-4.494 2.597-4.559-1.429-2.09-3.623-2.324-4.39-2.376-2-.156-3.675 1.09-4.61 1.09zM15.53 3.83c.843-1.012 1.4-2.427 1.245-3.83-1.207.052-2.662.805-3.532 1.818-.78.896-1.454 2.338-1.273 3.714 1.338.104 2.715-.688 3.559-1.701"/></svg><span class="t-full">Скачать для macOS</span><span class="t-short">Скачать для Mac</span></a
               >
               <a class="btn btn-ghost" href="https://github.com/Asmadey/popizdim-app"
-                ><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.925.435.375.81 1.096.81 2.22 0 .81-.01 1.89-.01 3.075 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/></svg>Репозиторий на GitHub</a
+                ><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.925.435.375.81 1.096.81 2.22 0 .81-.01 1.89-.01 3.075 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/></svg><span class="t-full">Репозиторий на GitHub</span><span class="t-short">GitHub репо</span></a
               >
             </div>
           </div>
@@ -2407,12 +2544,14 @@
         // Copy button
         var btn = document.getElementById("copy");
         if (btn) {
+          var resetTimer = null;
           btn.addEventListener("click", function () {
             var text = 'xattr -dr com.apple.quarantine "/Applications/Popizdim.app"';
             if (navigator.clipboard && navigator.clipboard.writeText) {
               navigator.clipboard.writeText(text).then(function () {
                 btn.textContent = "Скопировано";
-                setTimeout(function () {
+                clearTimeout(resetTimer);
+                resetTimer = setTimeout(function () {
                   btn.textContent = "Копировать";
                 }, 1800);
               }, function () {});
